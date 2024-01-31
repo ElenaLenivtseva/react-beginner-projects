@@ -7,6 +7,9 @@ export const Users = ({
   onChangeSearchValue,
   items,
   isLoading,
+  invites,
+  onClickInvite,
+  onClickSendInvites
 }) => {
   return (
     <>
@@ -31,13 +34,18 @@ export const Users = ({
         <ul className="users-list">
           {items.filter(obj => {
             const fullName = (obj.first_name + obj.last_name).toLowerCase();
-            return             fullName.includes(searchValue.toLowerCase())||obj.email.toLowerCase().includes(searchValue.toLowerCase()) 
-          }).map((obj) => {
-            <User key={obj.id} {...obj} />;
+            return fullName.includes(searchValue.toLowerCase())||obj.email.toLowerCase().includes(searchValue.toLowerCase()) 
+          })
+          .map((obj) => {
+            return (<User onClickInvite={onClickInvite} isInvited={invites.includes(obj.id)} key={obj.id} {...obj} />)
+            
           })}
         </ul>
       )}
-      <button className="send-invite-btn">Отправить приглашение</button>
+      {
+        invites.length>0 &&
+        (<button onClick={onClickSendInvites} className="send-invite-btn">Отправить приглашение</button>)
+      }
     </>
   );
 };
