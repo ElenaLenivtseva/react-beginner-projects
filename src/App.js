@@ -2,13 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import './index.scss';
 
-function App() {
-  const [open, setOpen] = useState(false)
-  
-  return (
-    <div className="App">
-      <button className="open-modal-btn" onClick={() => setOpen(true)}>✨ Открыть окно</button>
-      <div className={`overlay animated ${open ? 'show': ''}`}>
+const Modal = ({open, setOpen}) => (
+<div className={`overlay animated ${open ? 'show': ''}`}>
         <div className="modal">
           <svg height="200" viewBox="0 0 200 200" width="200" onClick={() => setOpen(false)}>
             <title />
@@ -17,6 +12,14 @@ function App() {
           <img src="https://media2.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" alt='for fun'/>
         </div>
       </div>
+)
+function App() {
+  const [open, setOpen] = useState(false)
+  
+  return (
+    <div className="App">
+      <button className="open-modal-btn" onClick={() => setOpen(true)}>✨ Открыть окно</button>
+      <Modal open={open} setOpen={setOpen}/>
       
     </div>
   );
